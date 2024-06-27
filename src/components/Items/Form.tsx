@@ -15,6 +15,7 @@ import {
   TextField,
   TextareaAutosize,
 } from "@mui/material";
+
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useFormData } from "./stateManagement/FormDataContext";
 import { ScanAppService } from "../../services/ScanAppService";
@@ -515,6 +516,7 @@ export const Form = () => {
                         <DatePicker
                           label="Expired On"
                           value={expiredOn}
+                          disablePast
                           // value={value}
                           className="datePickerWrapper"
                           onChange={(newValue) => {

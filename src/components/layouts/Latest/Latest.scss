@@ -44,6 +44,15 @@ html{
 --tran-0-5: 0.5s;
 }
 
+.Items-tenant{
+  margin-top: 75px ;
+}
+
+@media screen and (max-width: 700px) {
+  .Items-tenant{
+    margin-top: 20px ;
+  }
+  }
 /*Font sizes For Small Screen 968px */
 @media screen and (max-width: 990px) {
 :root {

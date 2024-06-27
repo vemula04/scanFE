@@ -23,6 +23,7 @@ import {
   DialogContentText,
   DialogTitle,
   FormControlLabel,
+  Icon
 } from "@mui/material";
 
 // import { menuItems } from '../../../Appconstant';
@@ -56,6 +57,7 @@ export const DashBoard = () => {
   //   }
 
   // }
+  
   const prepareCustomDate = (nDate: any) => {
     if (!nDate) return (new Date()).getTime();
     const custDate = new Date(nDate);
@@ -359,14 +361,14 @@ export const DashBoard = () => {
                               // }}
                               >
                                 {/* <AddIcon/> */}
-                                Add Item
+                                <Icon baseClassName="fas" className="fa-plus-circle" color="primary" sx={{ color: `${config?.data[0]?.secondary_color}` }} />  Add Item
                               </Button>
                             </Link>
                             </div>
                             <div className="visible" style={{ "textDecoration": "pointer"}} onClick={refreshItems} title="Refresh to Load new Items" >
                           {/* <RefreshTwoToneIcon className="decor"></RefreshTwoToneIcon> */}
                           <Button className="decor"
-                            variant="contained">Refresh</Button>
+                            variant="contained"><Icon baseClassName="fas" className="fa-sync" color="primary" sx={{ color: `${config?.data[0]?.secondary_color}`,paddingRight:"5px" }} />&nbsp;Refresh</Button>
                         </div>
                             </div>
                           )}
@@ -436,7 +438,7 @@ export const DashBoard = () => {
                                       {menuItem.currency_code == "AUD" ||
                                         menuItem.currency_code == "US"
                                         ? "$"
-                                        : "₹"}
+                                        : "$"}
                                       {menuItem.item_price}
                                     </p>
                                   </td>
@@ -445,7 +447,7 @@ export const DashBoard = () => {
                                       {menuItem.currency_code == "AUD" ||
                                         menuItem.currency_code == "US"
                                         ? "$"
-                                        : "₹"}
+                                        : "$"}
                                       {menuItem.promotional_price}
                                     </p>
                                   </td>

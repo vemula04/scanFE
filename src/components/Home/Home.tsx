@@ -161,7 +161,7 @@ export const Home = () => {
         </div>
       )}
 
-      {!isLoading && profile.length && (
+      {!isLoading && profile.length ? (
         <>
           <div className="buttonWrapper">
             <Link to={`/${tdata?.name}/latest`}>
@@ -177,6 +177,8 @@ export const Home = () => {
           <DetailedView />
           {isShow &&     <Review /> }
         </>
+      ): (
+        <></>
       )}
     </div>
   );

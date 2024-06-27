@@ -11,7 +11,7 @@ export const Latest = () => {
   return (
     <div className='Latest'>
       <section className="section menu" id="menu">
-        <div style={{"marginTop":"75px","textAlign":"center","fontSize":"20px"}}>{tenantName} <i>Items</i></div>
+        <div className='Items-tenant' style={{"textAlign":"center","fontSize":"20px"}}>{tenantName} <i>Items</i></div>
         <div className="menu-container container">
           <div className="menu-content" style={{"overflowY":"auto","height":"calc(100vh - 220px)"}}>
             <div className="menu-items">
@@ -35,11 +35,11 @@ export const Latest = () => {
                             <span className="badge badge-success" style={{fontSize: "15px", marginRight:"10px"}}>  {menuItem.currency_code == "AUD" ||
                                           menuItem.currency_code == "US"
                                             ? "$"
-                                            : "₹"}{menuItem.promotional_price}</span>
+                                            : "$"}{menuItem.promotional_price}</span>
                             <span className="real-price" style={{color:"#b85a5a"}}>  {menuItem.currency_code == "AUD" ||
                                           menuItem.currency_code == "US"
                                             ? "$"
-                                            : "₹"}{menuItem.item_price}</span>
+                                            : "$"}{menuItem.item_price}</span>
                           </div>
                         </div>
                         <div className="spices-price-wraper">
