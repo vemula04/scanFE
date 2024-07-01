@@ -3,15 +3,13 @@ import HttpApiService from "./HttpApiService";
 
 const API_BASE = "${config.API.BASEURI}";
 
-
-//  const scanAPPAPI = "http://happserver.ap-southeast-2.elasticbeanstalk.com"
-// const scanAPPAPI = "http://localhost:3000";
-const scanAPPAPI = "http://happserver-env-1.eba-xn6wqr76.ap-southeast-2.elasticbeanstalk.com";
+const IS_PROD: boolean = true;
+const scanAPPAPI = IS_PROD ? "http://happserver-env-1.eba-xn6wqr76.ap-southeast-2.elasticbeanstalk.com" : "http://localhost:3000";
 
 export class ScanApp extends HttpApiService {
   constructor() {
     super(`${API_BASE}`);
-  } 
+  }
  
   onBoarding = (data:any)=>{
     return this.post(`${scanAPPAPI}/onboard`, data)

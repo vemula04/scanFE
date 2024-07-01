@@ -14,6 +14,7 @@ export const MobileHeader = () => {
   const navigate = useNavigate();
   const url = config ? config?.data[0]?.url : "https://i.imgur.com/QQ8FTjR.png";
   const tenant = config?.data[0].name;
+  const display_name = config?.data[0]?.display_name;
   // const currentRoute = window.location.hash.split("/")?.[2];
 
   console.log("config from header", config?.data[0].url);
@@ -33,7 +34,11 @@ export const MobileHeader = () => {
   const showMenu = () => {
     setisShow(!isShow);
   };
-
+  const hideMenu = () =>{
+    if(isShow){
+      setisShow(!isShow);
+    }
+  };
   useEffect(() => {
     console.log(isTenant);
     if (location.href.includes("dashBoard") || location.href.includes("home")) {
@@ -46,6 +51,7 @@ export const MobileHeader = () => {
   const navigateToPage = (pageName: String) => {
     navigate(`../${tenant}/${pageName}`, { replace: true });
   }
+
   return (
     <header>
       <div className={`headerWrapper ${isShow ? 'animateMenu' : ''}`}>
@@ -54,11 +60,11 @@ export const MobileHeader = () => {
             <div className="logoWrapper">
               {/* <span className="tenant-name" style={{color: `${config?.data[0]?.secondary_color}`}}>{tenant}</span> */}
               <img className="headerLogo" src={url} alt="" />
-              <span className="mobileView" style={{ color: `${config?.data[0]?.secondary_color}` }}>{tenant}</span>
+              <span className="mobileView" style={{ color: `${config?.data[0]?.secondary_color}` }}>{display_name ? display_name : tenant}</span>
             </div>
           </Link>
         </div>
-        <div className="desktopview" style={{ color: `${config?.data[0]?.secondary_color}` }}><h2>{tenant}</h2></div>
+        <div className="desktopview" style={{ color: `${config?.data[0]?.secondary_color}` }}><h2>{display_name ? display_name : tenant}</h2></div>
         <div className="desktopview">
           <nav>
             <ul>
@@ -74,7 +80,7 @@ export const MobileHeader = () => {
             </ul>
           </nav>
         </div>
-        <div className="mobileView">
+        <div className="mobileView" onClick={hideMenu}>
           <a onClick={showMenu} className="icon">
             <i className="fa fa-bars"></i>
           </a>
@@ -84,8 +90,8 @@ export const MobileHeader = () => {
                 <li><a href="javascript:void(0)" className="active" onClick={() => navigateToPage("home")}>Home</a></li>
               )}
               {/* <li><a href="#top5" className="">Top 5 Items</a></li> */}
-              <li><a href="javascript:void(0)" className="">About</a></li>
-              <li className="lastLi"><a href="javascript:void(0)">Contact</a></li>
+              <li><a href="javascript:void(0)" className="" >About</a></li>
+              <li className="lastLi"><a href="javascript:void(0)" >Contact</a></li>
               {isLogin && (<li><a href="javascript:void(0)" className="" onClick={logout}>Logout</a></li>)}
 
             </ul>

@@ -40,7 +40,7 @@ export const Form = () => {
   const navigate = useNavigate();
   const [response, setResponse] = useState({ message: "", statusCode: 0 });
   const [errors, setErrors] = useState({
-    tenantDetails: { tenantName: "", email: "" },
+    tenantDetails: { tenantName: "", email: "", displayName: "" },
     userDetails: {
       name: "",
       email: "",
@@ -205,6 +205,7 @@ export const Form = () => {
 
     // Perform onBlur validation for all fields
     onBlurtenantDetails("tenantName")();
+    onBlurtenantDetails("displayName")();
     onBlurtenantDetails("email")();
     onBlurUserDetails("contact")();
     onBlurLocation("address")();
@@ -218,6 +219,7 @@ export const Form = () => {
         isEmptyFormValues(userDetails, "user") ||
         isEmptyFormValues(location, "tAddress") ||
         errors.tenantDetails.tenantName != ""  ||
+        errors.tenantDetails.displayName != ""  ||
         errors.tenantDetails.email != "" ||
         errors.userDetails.contact != ""  ||
         errors.location.address != ""  ||
@@ -238,6 +240,7 @@ export const Form = () => {
             const res = await ScanAppService.updateTenant({
               _id: tenantId,
               name: tenantDetails.tenantName,
+              displayName: tenantDetails.displayName,
               contact: userDetails.contact,
               url: fileSrc,
               primary_color: themeDetails.primaryColor,
@@ -259,6 +262,7 @@ export const Form = () => {
           } else {
             const res = await ScanAppService.onBoarding({
               name: tenantDetails.tenantName,
+              displayName: tenantDetails.displayName,
               email: tenantDetails.email,
               contact: userDetails.contact,
               url: fileSrc,
@@ -381,31 +385,26 @@ export const Form = () => {
                   </FormControl>
                 </div>
                 <div className="col-md-6">
-                  <FormControl sx={{ m: 1, width: "100%" }}>
+                <FormControl sx={{ m: 1, width: "100%" }}>
                     <TextField
                       required
-                      type="email"
                       id="outlined-basic"
                       fullWidth
-                      label="Email"
+                      label="Tenant Display Name"
                       multiline
                       variant="outlined"
-                      value={tenantDetails.email}
-                      disabled={disabled}
+                      value={tenantDetails.displayName}
                       onChange={(e) => {
-                        const emailValue = e.target.value
-                          .replace(/[^a-zA-Z0-9@.]/g, "")
-                          .replace(/\.com.*$/, ".com");
-                        setTenantDetails({
-                          ...tenantDetails,
-                          email: emailValue,
-                        });
+                        const id = e.target.value
+                          // .replace(/^\s+/, "")                          
+                          .replace(/[^a-z A-Z]/g, ""); // Remove non-alphabetic characters
+                        // const id = e.target.value.trim().replace(/\s{2,}/g, ' ').replace(/[^a-zA-Z0-9 ]/g, '')
+                        setTenantDetails({ ...tenantDetails, displayName: id });
                       }}
-                      // onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
                       size="small"
-                      onBlur={onBlurtenantDetails("email")}
-                      error={!!errors.tenantDetails.email}
-                      helperText={errors.tenantDetails.email}
+                      onBlur={onBlurtenantDetails("displayName")}
+                      error={!!errors.tenantDetails.displayName}
+                      helperText={errors.tenantDetails.displayName}
                       inputProps={{ maxLength: 50 }}
                     />
                   </FormControl>
@@ -461,6 +460,38 @@ export const Form = () => {
                     </div>
                   </FormControl>
                 </div>
+                <div
+                  className="col-md-6"
+                  style={{ display: "flex" }}>
+                    <FormControl sx={{ m: 1, width: "100%" }}>
+                    <TextField
+                      required
+                      type="email"
+                      id="outlined-basic"
+                      fullWidth
+                      label="Email"
+                      multiline
+                      variant="outlined"
+                      value={tenantDetails.email}
+                      disabled={disabled}
+                      onChange={(e) => {
+                        const emailValue = e.target.value
+                          .replace(/[^a-zA-Z0-9@.]/g, "")
+                          .replace(/\.com.*$/, ".com");
+                        setTenantDetails({
+                          ...tenantDetails,
+                          email: emailValue,
+                        });
+                      }}
+                      // onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
+                      size="small"
+                      onBlur={onBlurtenantDetails("email")}
+                      error={!!errors.tenantDetails.email}
+                      helperText={errors.tenantDetails.email}
+                      inputProps={{ maxLength: 50 }}
+                    />
+                  </FormControl>
+                  </div>
               </div>
             </div>
           </fieldset>

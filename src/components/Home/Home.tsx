@@ -21,8 +21,8 @@ export const Home = () => {
   const tdata = config?.data[0];
   const handleClickOpen = (index: number) => {
     setIndexedImage(index);
-    setOpen(true);
-    setIsPopupOpen(true);
+    setOpen(false);
+    setIsPopupOpen(false);
   };
   const [profile, setProfile] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

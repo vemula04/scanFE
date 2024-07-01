@@ -7,11 +7,12 @@ export const Latest = () => {
   const menuItems = sessionStorage.tenant_items ? JSON.parse(sessionStorage.tenant_items) : [];
   const config = sessionStorage.appConfig ? JSON.parse(sessionStorage.appConfig) : [];
   const tenantName = config?.data[0]?.name;
+  const display_name = config?.data[0]?.display_name;
   console.log("menu Items", menuItems)
   return (
     <div className='Latest'>
       <section className="section menu" id="menu">
-        <div className='Items-tenant' style={{"textAlign":"center","fontSize":"20px"}}>{tenantName} <i>Items</i></div>
+        <div className='Items-tenant' style={{"textAlign":"center","fontSize":"20px"}}>{display_name ? display_name : tenantName} :: <i>Items</i></div>
         <div className="menu-container container">
           <div className="menu-content" style={{"overflowY":"auto","height":"calc(100vh - 220px)"}}>
             <div className="menu-items">
